@@ -244,3 +244,9 @@ button:hover {
     border: 1px solid brown;
     border-radius: 50%;
 }
+
+.kitty-gif {
+    width: 60px; /* Размер гифки */
+    height: 60px; /* Размер гифки */
+    object-fit: cover; /* Чтобы гифка не искажалась */
+}
