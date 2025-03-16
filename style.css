@@ -113,11 +113,11 @@ button:hover {
 }
 
 .delete-pin {
-    background: #d6336c;
-    color: white;
+    background: none;
+    color: rgb(94, 88, 88);
     border: none;
     cursor: pointer;
-    font-size: 12px;
+    font-size: 20px;
     padding: 2px 5px;
     border-radius: 3px;
     flex-shrink: 0;
