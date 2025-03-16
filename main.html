@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ежедневник</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Bungee+Shade&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Kitten's notes</h1>
+        <div class="week-navigation">
+            <button id="prevWeek">&#9665; Назад</button>
+            <span id="currentWeek">Неделя</span>
+            <button id="nextWeek">Вперед &#9655;</button>
+        </div>
+        
+        <!-- Добавим выпадающий список месяцев -->
+        <select id="monthSelect">
+            <!-- Месяцы будут добавляться через JavaScript -->
+        </select>
+        
+        <div class="week-view" id="weekView"></div>
+        <div class="month-view" id="monthView" style="display: none;"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
