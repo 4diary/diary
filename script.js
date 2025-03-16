@@ -79,53 +79,69 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    function createPinElement(dayKey, pin) {
-        let pinDiv = document.createElement("div");
-        pinDiv.classList.add("pin");
-        pinDiv.style.backgroundColor = pin.color || "#ffffff";
+function createPinElement(dayKey, pin) {
+    let pinDiv = document.createElement("div");
+    pinDiv.classList.add("pin");
+    pinDiv.style.backgroundColor = pin.color || "#ffffff";
 
-        let colorPicker = document.createElement("input");
-        colorPicker.type = "color";
-        colorPicker.classList.add("color-picker");
-        colorPicker.value = pin.color || "#ffffff";
-        colorPicker.style.width = "24px";
-        colorPicker.style.height = "24px";
-        colorPicker.style.borderRadius = "50%";
-        colorPicker.style.padding = "0";
-        colorPicker.style.cursor = "pointer";
-        colorPicker.addEventListener("input", (event) => {
-            let newColor = event.target.value;
-            pinDiv.style.backgroundColor = newColor;
-            let pins = loadPins(dayKey);
-            let index = pins.findIndex(p => p.text === pin.text);
-            if (index !== -1) {
-                pins[index].color = newColor;
-                savePins(dayKey, pins);
-            }
-        });
+    // Создаем элемент для картинки (например, лапка)
+    let checkBoxImage = document.createElement("img");
+    checkBoxImage.src = pin.checked ? "lapka.png" : "white.jpg"; // Картинка для галочки
+    checkBoxImage.alt = "Лапка"; // Подсказка для изображения
+    checkBoxImage.classList.add("pin-image");
+    checkBoxImage.style.cursor = "pointer";
 
-        let deleteBtn = document.createElement("button");
-        deleteBtn.textContent = "✖";
-        deleteBtn.classList.add("delete-pin");
-        deleteBtn.addEventListener("click", () => {
-            let pins = loadPins(dayKey).filter(p => p.text !== pin.text);
+    // Обработчик для изменения состояния чекбокса (картинки)
+    checkBoxImage.addEventListener("click", () => {
+        pin.checked = !pin.checked;
+        checkBoxImage.src = pin.checked ? "lapka.png" : "white.jpg"; // Меняем картинку
+        savePins(dayKey, loadPins(dayKey)); // Сохраняем состояние
+    });
+
+    let pinText = document.createElement("span");
+    pinText.textContent = pin.text;
+    pinText.addEventListener("click", () => editPin(dayKey, pin.text, pinText));
+
+    let textContainer = document.createElement("div");
+    textContainer.classList.add("text-container");
+    textContainer.appendChild(checkBoxImage); // Добавляем картинку перед текстом
+    textContainer.appendChild(pinText);
+
+    let colorPicker = document.createElement("input");
+    colorPicker.type = "color";
+    colorPicker.classList.add("color-picker");
+    colorPicker.value = pin.color || "#ffffff";
+    colorPicker.addEventListener("input", (event) => {
+        let newColor = event.target.value;
+        pinDiv.style.backgroundColor = newColor;
+        let pins = loadPins(dayKey);
+        let index = pins.findIndex(p => p.text === pin.text);
+        if (index !== -1) {
+            pins[index].color = newColor;
             savePins(dayKey, pins);
-            renderWeek();
-        });
+        }
+    });
 
-        let pinText = document.createElement("span");
-        pinText.textContent = pin.text;
-        pinText.addEventListener("click", () => editPin(dayKey, pin.text, pinText));
+    let deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "✖";
+    deleteBtn.classList.add("delete-pin");
+    deleteBtn.addEventListener("click", () => {
+        let pins = loadPins(dayKey).filter(p => p.text !== pin.text);
+        savePins(dayKey, pins);
+        renderWeek();
+    });
 
-        let buttonContainer = document.createElement("div");
-        buttonContainer.classList.add("button-container");
-        buttonContainer.appendChild(colorPicker);
-        buttonContainer.appendChild(deleteBtn);
+    let buttonContainer = document.createElement("div");
+    buttonContainer.classList.add("button-container");
+    buttonContainer.appendChild(colorPicker);
+    buttonContainer.appendChild(deleteBtn);
 
-        pinDiv.appendChild(buttonContainer);
-        pinDiv.appendChild(pinText);
-        return pinDiv;
-    }
+    pinDiv.appendChild(textContainer);
+    pinDiv.appendChild(buttonContainer);
+    return pinDiv;
+}
+
+    
 
     function renderWeek() {
         weekView.innerHTML = "";

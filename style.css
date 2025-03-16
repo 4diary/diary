@@ -16,6 +16,12 @@ body {
     box-shadow: 0 0 15px rgba(128, 0, 32, 0.2);
 }
 
+.text-container {
+    display: flex;
+    align-items: center; /* Центрируем чекбокс и текст по вертикали */
+    gap: 10px; /* Отступы между чекбоксом и текстом */
+}
+
 h1 {
     font-family: 'Bungee Shade', cursive;
     font-size: 50px;
@@ -180,10 +186,10 @@ button:hover {
 .color-picker {
     -webkit-appearance: none;
     appearance: none;
-    background: none;
+    background: white;
     border: 1px solid black;
-    width: 30px;
-    height: 30px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     cursor: pointer;
     padding: 0;
@@ -223,4 +229,18 @@ button:hover {
     background-color: #ffccd5; /* Более светлый розовый при наведении */
 }
 
+.pin-checkbox {
+    cursor: pointer;
+}
 
+.pin-checkbox:checked {
+    background-color: #d6336c; /* Бордовый цвет фона чекбокса */
+}
+
+.pin-image {
+    width: 24px; /* Размер картинки */
+    height: 24px; /* Размер картинки */
+    margin-right: 10px; /* Отступ от текста */
+    border: 1px solid brown;
+    border-radius: 50%;
+}
